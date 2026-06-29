@@ -1,0 +1,782 @@
+{
+  "regions": [
+    {
+      "id": 1,
+      "name": "Mumbai (ap-south-1)",
+      "status": "Active",
+      "last_failover": null
+    },
+    {
+      "id": 2,
+      "name": "Singapore (ap-southeast-1)",
+      "status": "Standby",
+      "last_failover": null
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Vedant Gajankar",
+      "email": "vedantgajankar@gmail.com",
+      "role": "Administrator",
+      "created_at": "2026-03-20T15:21:10.349Z"
+    },
+    {
+      "id": 2,
+      "name": "Operations Lead",
+      "email": "ops-lead@sentineldr.io",
+      "role": "Operator",
+      "created_at": "2026-05-09T15:21:10.359Z"
+    },
+    {
+      "id": 3,
+      "name": "Security Auditor",
+      "email": "auditor@sentineldr.io",
+      "role": "Read-Only",
+      "created_at": "2026-06-18T15:21:10.369Z"
+    }
+  ],
+  "incidents": [
+    {
+      "id": 1,
+      "region_id": 1,
+      "cause": "EC2 Auto Scaling Spike - Peak Traffic",
+      "recovery_time": 180,
+      "status": "Resolved",
+      "created_at": "2026-06-26T15:21:10.393Z"
+    },
+    {
+      "id": 2,
+      "region_id": 2,
+      "cause": "Primary Database Replication Timeout",
+      "recovery_time": 45,
+      "status": "Resolved",
+      "created_at": "2026-06-27T15:21:10.403Z"
+    }
+  ],
+  "health_logs": [
+    {
+      "id": 225,
+      "region_id": 1,
+      "cpu_usage": 33,
+      "memory_usage": 35,
+      "timestamp": "2026-06-28T15:30:35.011Z"
+    },
+    {
+      "id": 226,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:30:35.011Z"
+    },
+    {
+      "id": 227,
+      "region_id": 1,
+      "cpu_usage": 21,
+      "memory_usage": 41,
+      "timestamp": "2026-06-28T15:30:40.014Z"
+    },
+    {
+      "id": 228,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 18,
+      "timestamp": "2026-06-28T15:30:40.014Z"
+    },
+    {
+      "id": 229,
+      "region_id": 1,
+      "cpu_usage": 23,
+      "memory_usage": 46,
+      "timestamp": "2026-06-28T15:30:45.019Z"
+    },
+    {
+      "id": 230,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:30:45.019Z"
+    },
+    {
+      "id": 231,
+      "region_id": 1,
+      "cpu_usage": 28,
+      "memory_usage": 47,
+      "timestamp": "2026-06-28T15:30:50.029Z"
+    },
+    {
+      "id": 232,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:30:50.029Z"
+    },
+    {
+      "id": 233,
+      "region_id": 1,
+      "cpu_usage": 32,
+      "memory_usage": 50,
+      "timestamp": "2026-06-28T15:30:55.038Z"
+    },
+    {
+      "id": 234,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:30:55.038Z"
+    },
+    {
+      "id": 235,
+      "region_id": 1,
+      "cpu_usage": 33,
+      "memory_usage": 42,
+      "timestamp": "2026-06-28T15:31:00.042Z"
+    },
+    {
+      "id": 236,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:31:00.042Z"
+    },
+    {
+      "id": 237,
+      "region_id": 1,
+      "cpu_usage": 21,
+      "memory_usage": 37,
+      "timestamp": "2026-06-28T15:31:05.054Z"
+    },
+    {
+      "id": 238,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 18,
+      "timestamp": "2026-06-28T15:31:05.054Z"
+    },
+    {
+      "id": 239,
+      "region_id": 1,
+      "cpu_usage": 34,
+      "memory_usage": 40,
+      "timestamp": "2026-06-28T15:31:10.055Z"
+    },
+    {
+      "id": 240,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:31:10.055Z"
+    },
+    {
+      "id": 241,
+      "region_id": 1,
+      "cpu_usage": 34,
+      "memory_usage": 38,
+      "timestamp": "2026-06-28T15:31:15.059Z"
+    },
+    {
+      "id": 242,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 15,
+      "timestamp": "2026-06-28T15:31:15.059Z"
+    },
+    {
+      "id": 243,
+      "region_id": 1,
+      "cpu_usage": 25,
+      "memory_usage": 49,
+      "timestamp": "2026-06-28T15:31:20.062Z"
+    },
+    {
+      "id": 244,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 20,
+      "timestamp": "2026-06-28T15:31:20.062Z"
+    },
+    {
+      "id": 245,
+      "region_id": 1,
+      "cpu_usage": 35,
+      "memory_usage": 49,
+      "timestamp": "2026-06-28T15:31:25.071Z"
+    },
+    {
+      "id": 246,
+      "region_id": 2,
+      "cpu_usage": 7,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:31:25.071Z"
+    },
+    {
+      "id": 247,
+      "region_id": 1,
+      "cpu_usage": 27,
+      "memory_usage": 42,
+      "timestamp": "2026-06-28T15:31:30.075Z"
+    },
+    {
+      "id": 248,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:31:30.075Z"
+    },
+    {
+      "id": 249,
+      "region_id": 1,
+      "cpu_usage": 20,
+      "memory_usage": 46,
+      "timestamp": "2026-06-28T15:31:35.083Z"
+    },
+    {
+      "id": 250,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:31:35.083Z"
+    },
+    {
+      "id": 251,
+      "region_id": 1,
+      "cpu_usage": 30,
+      "memory_usage": 48,
+      "timestamp": "2026-06-28T15:31:40.090Z"
+    },
+    {
+      "id": 252,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 15,
+      "timestamp": "2026-06-28T15:31:40.090Z"
+    },
+    {
+      "id": 253,
+      "region_id": 1,
+      "cpu_usage": 28,
+      "memory_usage": 37,
+      "timestamp": "2026-06-28T15:31:45.098Z"
+    },
+    {
+      "id": 254,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:31:45.098Z"
+    },
+    {
+      "id": 255,
+      "region_id": 1,
+      "cpu_usage": 26,
+      "memory_usage": 38,
+      "timestamp": "2026-06-28T15:31:50.107Z"
+    },
+    {
+      "id": 256,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 20,
+      "timestamp": "2026-06-28T15:31:50.107Z"
+    },
+    {
+      "id": 257,
+      "region_id": 1,
+      "cpu_usage": 32,
+      "memory_usage": 37,
+      "timestamp": "2026-06-28T15:31:55.110Z"
+    },
+    {
+      "id": 258,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:31:55.110Z"
+    },
+    {
+      "id": 259,
+      "region_id": 1,
+      "cpu_usage": 33,
+      "memory_usage": 38,
+      "timestamp": "2026-06-28T15:32:00.115Z"
+    },
+    {
+      "id": 260,
+      "region_id": 2,
+      "cpu_usage": 7,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:32:00.115Z"
+    },
+    {
+      "id": 261,
+      "region_id": 1,
+      "cpu_usage": 33,
+      "memory_usage": 36,
+      "timestamp": "2026-06-28T15:32:05.120Z"
+    },
+    {
+      "id": 262,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 15,
+      "timestamp": "2026-06-28T15:32:05.120Z"
+    },
+    {
+      "id": 263,
+      "region_id": 1,
+      "cpu_usage": 26,
+      "memory_usage": 48,
+      "timestamp": "2026-06-28T15:32:10.118Z"
+    },
+    {
+      "id": 264,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 20,
+      "timestamp": "2026-06-28T15:32:10.118Z"
+    },
+    {
+      "id": 265,
+      "region_id": 1,
+      "cpu_usage": 26,
+      "memory_usage": 41,
+      "timestamp": "2026-06-28T15:32:15.119Z"
+    },
+    {
+      "id": 266,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:32:15.119Z"
+    },
+    {
+      "id": 267,
+      "region_id": 1,
+      "cpu_usage": 24,
+      "memory_usage": 48,
+      "timestamp": "2026-06-28T15:32:20.133Z"
+    },
+    {
+      "id": 268,
+      "region_id": 2,
+      "cpu_usage": 2,
+      "memory_usage": 18,
+      "timestamp": "2026-06-28T15:32:20.133Z"
+    },
+    {
+      "id": 269,
+      "region_id": 1,
+      "cpu_usage": 35,
+      "memory_usage": 46,
+      "timestamp": "2026-06-28T15:32:25.134Z"
+    },
+    {
+      "id": 270,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:32:25.134Z"
+    },
+    {
+      "id": 271,
+      "region_id": 1,
+      "cpu_usage": 33,
+      "memory_usage": 37,
+      "timestamp": "2026-06-28T15:32:30.146Z"
+    },
+    {
+      "id": 272,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:32:30.146Z"
+    },
+    {
+      "id": 273,
+      "region_id": 1,
+      "cpu_usage": 27,
+      "memory_usage": 42,
+      "timestamp": "2026-06-28T15:32:35.157Z"
+    },
+    {
+      "id": 274,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:32:35.157Z"
+    },
+    {
+      "id": 275,
+      "region_id": 1,
+      "cpu_usage": 26,
+      "memory_usage": 45,
+      "timestamp": "2026-06-28T15:32:40.162Z"
+    },
+    {
+      "id": 276,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:32:40.162Z"
+    },
+    {
+      "id": 277,
+      "region_id": 1,
+      "cpu_usage": 31,
+      "memory_usage": 45,
+      "timestamp": "2026-06-28T15:32:45.164Z"
+    },
+    {
+      "id": 278,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:32:45.164Z"
+    },
+    {
+      "id": 279,
+      "region_id": 1,
+      "cpu_usage": 29,
+      "memory_usage": 35,
+      "timestamp": "2026-06-28T15:32:50.165Z"
+    },
+    {
+      "id": 280,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 19,
+      "timestamp": "2026-06-28T15:32:50.165Z"
+    },
+    {
+      "id": 281,
+      "region_id": 1,
+      "cpu_usage": 22,
+      "memory_usage": 45,
+      "timestamp": "2026-06-28T15:32:55.173Z"
+    },
+    {
+      "id": 282,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 15,
+      "timestamp": "2026-06-28T15:32:55.173Z"
+    },
+    {
+      "id": 283,
+      "region_id": 1,
+      "cpu_usage": 25,
+      "memory_usage": 40,
+      "timestamp": "2026-06-28T15:33:00.178Z"
+    },
+    {
+      "id": 284,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:33:00.178Z"
+    },
+    {
+      "id": 285,
+      "region_id": 1,
+      "cpu_usage": 24,
+      "memory_usage": 48,
+      "timestamp": "2026-06-28T15:33:05.193Z"
+    },
+    {
+      "id": 286,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:33:05.193Z"
+    },
+    {
+      "id": 287,
+      "region_id": 1,
+      "cpu_usage": 21,
+      "memory_usage": 50,
+      "timestamp": "2026-06-28T15:33:10.194Z"
+    },
+    {
+      "id": 288,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:33:10.194Z"
+    },
+    {
+      "id": 289,
+      "region_id": 1,
+      "cpu_usage": 25,
+      "memory_usage": 42,
+      "timestamp": "2026-06-28T15:33:15.199Z"
+    },
+    {
+      "id": 290,
+      "region_id": 2,
+      "cpu_usage": 5,
+      "memory_usage": 18,
+      "timestamp": "2026-06-28T15:33:15.199Z"
+    },
+    {
+      "id": 291,
+      "region_id": 1,
+      "cpu_usage": 23,
+      "memory_usage": 40,
+      "timestamp": "2026-06-28T15:33:20.204Z"
+    },
+    {
+      "id": 292,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:33:20.204Z"
+    },
+    {
+      "id": 293,
+      "region_id": 1,
+      "cpu_usage": 34,
+      "memory_usage": 43,
+      "timestamp": "2026-06-28T15:33:25.210Z"
+    },
+    {
+      "id": 294,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:33:25.210Z"
+    },
+    {
+      "id": 295,
+      "region_id": 1,
+      "cpu_usage": 21,
+      "memory_usage": 43,
+      "timestamp": "2026-06-28T15:33:30.214Z"
+    },
+    {
+      "id": 296,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 19,
+      "timestamp": "2026-06-28T15:33:30.214Z"
+    },
+    {
+      "id": 297,
+      "region_id": 1,
+      "cpu_usage": 32,
+      "memory_usage": 49,
+      "timestamp": "2026-06-28T15:33:35.222Z"
+    },
+    {
+      "id": 298,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 18,
+      "timestamp": "2026-06-28T15:33:35.222Z"
+    },
+    {
+      "id": 299,
+      "region_id": 1,
+      "cpu_usage": 23,
+      "memory_usage": 48,
+      "timestamp": "2026-06-28T15:33:40.227Z"
+    },
+    {
+      "id": 300,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:33:40.227Z"
+    },
+    {
+      "id": 301,
+      "region_id": 1,
+      "cpu_usage": 20,
+      "memory_usage": 40,
+      "timestamp": "2026-06-28T15:33:45.231Z"
+    },
+    {
+      "id": 302,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:33:45.231Z"
+    },
+    {
+      "id": 303,
+      "region_id": 1,
+      "cpu_usage": 26,
+      "memory_usage": 36,
+      "timestamp": "2026-06-28T15:33:50.237Z"
+    },
+    {
+      "id": 304,
+      "region_id": 2,
+      "cpu_usage": 7,
+      "memory_usage": 20,
+      "timestamp": "2026-06-28T15:33:50.237Z"
+    },
+    {
+      "id": 305,
+      "region_id": 1,
+      "cpu_usage": 34,
+      "memory_usage": 43,
+      "timestamp": "2026-06-28T15:33:55.243Z"
+    },
+    {
+      "id": 306,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:33:55.243Z"
+    },
+    {
+      "id": 307,
+      "region_id": 1,
+      "cpu_usage": 31,
+      "memory_usage": 37,
+      "timestamp": "2026-06-28T15:34:00.251Z"
+    },
+    {
+      "id": 308,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:34:00.251Z"
+    },
+    {
+      "id": 309,
+      "region_id": 1,
+      "cpu_usage": 30,
+      "memory_usage": 49,
+      "timestamp": "2026-06-28T15:34:05.255Z"
+    },
+    {
+      "id": 310,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:34:05.255Z"
+    },
+    {
+      "id": 311,
+      "region_id": 1,
+      "cpu_usage": 25,
+      "memory_usage": 44,
+      "timestamp": "2026-06-28T15:34:10.256Z"
+    },
+    {
+      "id": 312,
+      "region_id": 2,
+      "cpu_usage": 3,
+      "memory_usage": 19,
+      "timestamp": "2026-06-28T15:34:10.256Z"
+    },
+    {
+      "id": 313,
+      "region_id": 1,
+      "cpu_usage": 27,
+      "memory_usage": 49,
+      "timestamp": "2026-06-28T15:34:15.257Z"
+    },
+    {
+      "id": 314,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:34:15.257Z"
+    },
+    {
+      "id": 315,
+      "region_id": 1,
+      "cpu_usage": 24,
+      "memory_usage": 44,
+      "timestamp": "2026-06-28T15:34:20.257Z"
+    },
+    {
+      "id": 316,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 18,
+      "timestamp": "2026-06-28T15:34:20.257Z"
+    },
+    {
+      "id": 317,
+      "region_id": 1,
+      "cpu_usage": 30,
+      "memory_usage": 38,
+      "timestamp": "2026-06-28T15:34:25.259Z"
+    },
+    {
+      "id": 318,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:34:25.259Z"
+    },
+    {
+      "id": 319,
+      "region_id": 1,
+      "cpu_usage": 27,
+      "memory_usage": 35,
+      "timestamp": "2026-06-28T15:34:30.270Z"
+    },
+    {
+      "id": 320,
+      "region_id": 2,
+      "cpu_usage": 4,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:34:30.270Z"
+    },
+    {
+      "id": 321,
+      "region_id": 1,
+      "cpu_usage": 31,
+      "memory_usage": 39,
+      "timestamp": "2026-06-28T15:34:35.275Z"
+    },
+    {
+      "id": 322,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 16,
+      "timestamp": "2026-06-28T15:34:35.275Z"
+    },
+    {
+      "id": 323,
+      "region_id": 1,
+      "cpu_usage": 20,
+      "memory_usage": 42,
+      "timestamp": "2026-06-28T15:34:40.278Z"
+    },
+    {
+      "id": 324,
+      "region_id": 2,
+      "cpu_usage": 6,
+      "memory_usage": 17,
+      "timestamp": "2026-06-28T15:34:40.278Z"
+    }
+  ],
+  "alerts": [
+    {
+      "id": 1,
+      "incident_id": 1,
+      "type": "Critical",
+      "message": "Region ap-south-1 reported EC2 termination spikes. Auto-scaling triggered backup instances.",
+      "sent_at": "2026-06-26T15:21:10.420Z"
+    },
+    {
+      "id": 2,
+      "incident_id": 2,
+      "type": "Warning",
+      "message": "Region ap-southeast-1 DB replication lagging by >10s. Forcing replication rebuild.",
+      "sent_at": "2026-06-27T15:21:10.430Z"
+    }
+  ],
+  "simulation": {
+    "active": false,
+    "type": null,
+    "target_region_id": null,
+    "started_at": null,
+    "step": 0
+  }
+}

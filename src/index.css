@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-slate-950: #0D1117; /* Canvas Base: Deepest Charcoal/Midnight */
+  --color-slate-900: #161B22; /* Widget/Card Surface: Slightly lighter dark gray */
+  --color-slate-850: #21262D; /* Lighter dark for nested components/hovers */
+  --color-slate-800: #30363D; /* Gridlines & subtle borders */
+  --color-slate-700: #484F58; /* Muted borders */
+  --color-slate-600: #8B949E; /* Text / secondary context soft */
+  --color-slate-500: #8B949E; /* Muted gray-silver to keep secondary context soft */
+  --color-slate-400: #8B949E; /* Muted gray-silver */
+  --color-slate-300: #C9D1D9; /* Secondary light text */
+  --color-slate-200: #E6EDF0; /* Primary white/light-gray text */
+
+  /* Primary Accent: Electric Light Blue (#58A6FF) mapping to the blue color scale */
+  --color-blue-950: #0D1117;
+  --color-blue-900: #151B23;
+  --color-blue-800: #21262D;
+  --color-blue-700: #388BFD;
+  --color-blue-600: #58A6FF; /* Electric Light Blue */
+  --color-blue-500: #58A6FF;
+  --color-blue-400: #58A6FF;
+  --color-blue-300: #79C0FF;
+  
+  /* Adding Inter and JetBrains Mono fonts for clean, technical display pairing */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}

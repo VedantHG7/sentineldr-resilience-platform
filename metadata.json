@@ -1,0 +1,6 @@
+{
+  "name": "SentinelDR Resilience Platform",
+  "description": "AI-Powered Automated Disaster Recovery & Resilience Platform to monitor region health, simulate infrastructure disasters, orchestrate automated failovers, and generate real-time AI resilience playbooks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
