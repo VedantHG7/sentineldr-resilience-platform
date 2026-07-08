@@ -7,6 +7,7 @@ import { execSync } from "child_process";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { db } from "./server/db.js";
+import { getEC2CPUUtilization } from "./server/cloudwatch.js";
 
 const app = express();
 const PORT = 3000;
@@ -56,6 +57,27 @@ setInterval(() => {
 }, 6000);
 
 // --- API ENDPOINTS ---
+
+// TEST CLOUDWATCH CPU METRIC
+app.get("/api/aws/cpu", async (req, res) => {
+  try {
+    const cpu = await getEC2CPUUtilization(
+      "i-0ce94b29d921ddb19",
+      "ap-south-1"
+    );
+
+    res.json({
+      instance: "Mumbai",
+      cpuUtilization: cpu,
+    });
+  } catch (error: any) {
+    console.error(error);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
 
 // 0. DATABASE STATUS
 app.get("/api/db-status", (req, res) => {
