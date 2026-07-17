@@ -2,6 +2,7 @@ import "dotenv/config";
 import fs from 'fs';
 import path from 'path';
 import mysql from 'mysql2/promise';
+import { getEC2Status } from "./ec2";
 
 // Database Path
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -642,7 +643,7 @@ class DatabaseManager {
     return { success: true, incident, alert };
   }
 
-  progressSimulation(): { step: number; logs: string[] } {
+  async progressSimulation(): Promise<{ step: number; logs: string[] }> {
     const logs: string[] = [];
     if (!this.state.simulation.active) return { step: 0, logs };
 
@@ -677,8 +678,35 @@ class DatabaseManager {
       logs.push(`Failover complete: Traffic successfully routed to ${standbyRegion.name}. ${targetRegion.name} is now quarantined.`);
 
       // Swap active states
-      this.updateRegion(standbyRegion.id, { status: 'Active', last_failover: new Date().toISOString() });
-      this.updateRegion(targetRegion.id, { status: 'Standby' });
+      const singaporeState = await getEC2Status(
+  "i-057f9ddd076de9a79",
+  "ap-southeast-1"
+);
+
+if (singaporeState !== "running") {
+  logs.push("Failover aborted: Singapore standby EC2 is offline.");
+
+  if (activeIncident) {
+    this.addAlert({
+      incident_id: activeIncident.id,
+      type: "Critical",
+      message:
+        "Automatic failover failed. Singapore standby region is unavailable because its EC2 instance is not running."
+    });
+  }
+
+  return { step: sim.step, logs };
+}
+
+// Swap active states
+this.updateRegion(standbyRegion.id, {
+  status: "Active",
+  last_failover: new Date().toISOString(),
+});
+
+this.updateRegion(targetRegion.id, {
+  status: "Standby",
+});
 
       if (activeIncident) {
         this.updateIncident(activeIncident.id, {

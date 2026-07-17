@@ -15,6 +15,8 @@ export default function App() {
   // App data states
   const [regions, setRegions] = useState<Region[]>([]);
   const [telemetry, setTelemetry] = useState<TelemetryData | null>(null);
+  const [ec2Status, setEc2Status] = useState<any>(null);
+  const [awsMetrics, setAwsMetrics] = useState<any>(null);  
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -91,14 +93,16 @@ export default function App() {
     };
 
     try {
-      const [regionsData, healthData, incidentsData, alertsData, usersData, simData, dbStatusData] = await Promise.all([
+      const [regionsData, healthData, incidentsData, alertsData, usersData, simData, dbStatusData,ec2StatusData,awsMetricsData] = await Promise.all([
         safeFetchJson('/api/regions'),
         safeFetchJson('/api/health'),
         safeFetchJson('/api/incidents'),
         safeFetchJson('/api/alerts'),
         safeFetchJson('/api/users'),
         safeFetchJson('/api/simulation'),
-        safeFetchJson('/api/db-status')
+        safeFetchJson('/api/db-status'),
+  	safeFetchJson('/api/aws/ec2-status'),
+	safeFetchJson('/api/aws/metrics')
       ]);
 
       if (regionsData !== null) setRegions(regionsData);
@@ -108,6 +112,11 @@ export default function App() {
       if (usersData !== null) setUsers(usersData);
       if (simData !== null) setSimulation(simData);
       if (dbStatusData !== null) setDbStatus(dbStatusData);
+      if (ec2StatusData !== null) setEc2Status(ec2StatusData);
+      if (awsMetricsData !== null) {
+  console.log("AWS Metrics:", awsMetricsData);
+  setAwsMetrics(awsMetricsData);
+}
     } catch (err) {
       console.error("Failed to sync state from SentinelDR core APIs", err);
     } finally {
@@ -456,9 +465,19 @@ export default function App() {
                             </h3>
                           </div>
                           
-                          <span className={`px-2.5 py-1 rounded-full text-xs font-mono font-semibold uppercase ${statusColor}`}>
-                            {region.status}
-                          </span>
+                          <div className="flex flex-col items-end gap-1">
+  <span className={`px-2.5 py-1 rounded-full text-xs font-mono font-semibold uppercase ${statusColor}`}>
+    {region.status}
+  </span>
+
+  <span className="text-[11px] text-slate-400 font-mono">
+    EC2: {
+      isMumbai
+        ? ec2Status?.mumbai?.state || "Loading..."
+        : ec2Status?.singapore?.state || "Loading..."
+    }
+  </span>
+</div>
                         </div>
 
                         {/* Realtime Metrics gauges */}
@@ -466,28 +485,50 @@ export default function App() {
                           <div>
                             <div className="flex justify-between items-baseline mb-1">
                               <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">CPU CORES</span>
-                              <span className="text-xs font-mono text-white font-bold">{regionTelemetry?.cpu || 0}%</span>
+                              <span className="text-xs font-mono text-white font-bold">{
+  isMumbai
+    ? awsMetrics?.mumbai?.cpu ?? 0
+    : awsMetrics?.singapore?.cpu ?? 0
+}%%</span>
                             </div>
                             <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
                               <div 
                                 className={`h-full transition-all duration-500 ${
                                   (regionTelemetry?.cpu || 0) > 75 ? 'bg-rose-500' : 'bg-blue-500'
                                 }`}
-                                style={{ width: `${regionTelemetry?.cpu || 0}%` }}
+                                style={{
+  width: `${
+    isMumbai
+      ? awsMetrics?.mumbai?.cpu ?? 0
+      : awsMetrics?.singapore?.cpu ?? 0
+  }%`
+}}
                               ></div>
                             </div>
                           </div>
                           <div>
                             <div className="flex justify-between items-baseline mb-1">
                               <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">MEM RESIDENCY</span>
-                              <span className="text-xs font-mono text-white font-bold">{regionTelemetry?.memory || 0}%</span>
+                            <span className="text-xs font-mono text-white font-bold">
+  {isMumbai
+    ? awsMetrics?.mumbai?.memory?.toFixed(2) ?? 0
+    : awsMetrics?.singapore?.memory?.toFixed(2) ?? 0}%
+</span>
                             </div>
                             <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
                               <div 
                                 className={`h-full transition-all duration-500 ${
-                                  (regionTelemetry?.memory || 0) > 75 ? 'bg-rose-500' : 'bg-green-500'
+                                  (isMumbai
+                                    ? awsMetrics?.mumbai?.cpu ?? 0
+                                    : awsMetrics?.singapore?.cpu ?? 0) > 75 ? 'bg-rose-500' : 'bg-green-500'
                                 }`}
-                                style={{ width: `${regionTelemetry?.memory || 0}%` }}
+                                style={{
+  width: `${
+    isMumbai
+      ? awsMetrics?.mumbai?.memory ?? 0
+      : awsMetrics?.singapore?.memory ?? 0
+  }%`
+}}
                               ></div>
                             </div>
                           </div>
@@ -857,12 +898,30 @@ export default function App() {
                             )}
 
                             {simulation.step >= 2 && (
-                              <div className="space-y-1 pt-2 border-t border-slate-900">
-                                <p className="text-amber-400">🔄 STEP 2: DNS_ROUTING_DIVERSE</p>
-                                <p className="text-slate-300">- Shunting load Balancer ingress pools</p>
-                                <p className="text-slate-300">- Promoting Singapore standby cluster to master</p>
-                              </div>
-                            )}
+  <div className="space-y-1 pt-2 border-t border-slate-900">
+    <p className="text-amber-400">🔄 STEP 2: STANDBY_HEALTH_VERIFICATION</p>
+
+    {ec2Status?.singapore?.state === "running" ? (
+      <>
+        <p className="text-green-400">
+          ✓ Singapore standby EC2 verified healthy.
+        </p>
+        <p className="text-slate-300">
+          - Promoting Singapore standby cluster to master
+        </p>
+      </>
+    ) : (
+      <>
+        <p className="text-red-400">
+          ✗ Singapore standby EC2 is OFFLINE.
+        </p>
+        <p className="text-red-400">
+          - Automatic failover aborted.
+        </p>
+      </>
+    )}
+  </div>
+)}
 
                             {simulation.step >= 3 && (
                               <div className="space-y-1 pt-2 border-t border-slate-900">

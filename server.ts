@@ -7,7 +7,11 @@ import { execSync } from "child_process";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { db } from "./server/db.js";
-import { getEC2CPUUtilization } from "./server/cloudwatch.js";
+import {
+  getEC2CPUUtilization,
+  getEC2MemoryUtilization,
+} from "./server/cloudwatch.js";
+import { getEC2Status } from "./server/ec2";
 
 const app = express();
 const PORT = 3000;
@@ -42,11 +46,11 @@ setInterval(() => {
 }, 5000);
 
 // Process disaster recovery steps every 6 seconds if simulation is active
-setInterval(() => {
+setInterval(async () => {
   try {
     const sim = db.getSimulationState();
     if (sim.active) {
-      const result = db.progressSimulation();
+      const result = await db.progressSimulation();
       if (result.logs && result.logs.length > 0) {
         console.log("ADR Progress logs:", result.logs);
       }
@@ -75,6 +79,78 @@ app.get("/api/aws/cpu", async (req, res) => {
 
     res.status(500).json({
       error: error.message,
+    });
+  }
+});
+
+app.get("/api/aws/ec2-status", async (req, res) => {
+  try {
+    const mumbaiStatus = await getEC2Status(
+      "i-0ce94b29d921ddb19",
+      "ap-south-1"
+    );
+
+    const singaporeStatus = await getEC2Status(
+      "i-057f9ddd076de9a79",
+      "ap-southeast-1"
+    );
+
+    res.json({
+      mumbai: {
+        instanceId: "i-0ce94b29d921ddb19",
+        state: mumbaiStatus,
+      },
+      singapore: {
+        instanceId: "i-057f9ddd076de9a79",
+        state: singaporeStatus,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+app.get("/api/aws/metrics", async (req, res) => {
+  try {
+    const mumbaiCPU = await getEC2CPUUtilization(
+      "i-0ce94b29d921ddb19",
+      "ap-south-1"
+    );
+
+    const singaporeCPU = await getEC2CPUUtilization(
+      "i-057f9ddd076de9a79",
+      "ap-southeast-1"
+    );
+
+const mumbaiMemory = await getEC2MemoryUtilization(
+  "i-0ce94b29d921ddb19",
+  "ap-south-1"
+);
+
+const singaporeMemory = await getEC2MemoryUtilization(
+  "i-057f9ddd076de9a79",
+  "ap-southeast-1"
+);
+
+    res.json({
+  mumbai: {
+    cpu: Number(mumbaiCPU.toFixed(2)),
+    memory: Number(mumbaiMemory.toFixed(2)),
+  },
+  singapore: {
+    cpu: Number(singaporeCPU.toFixed(2)),
+    memory: Number(singaporeMemory.toFixed(2)),
+  },
+});
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      success: false,
+      error: "Unable to fetch CloudWatch metrics",
     });
   }
 });
@@ -158,8 +234,15 @@ app.get("/api/incidents", (req, res) => {
 });
 
 // 4. DISASTER SIMULATION CONTROL
-app.get("/api/simulation", (req, res) => {
+app.get("/api/simulation", async (req, res) => {
   try {
+    const simulation = db.getSimulationState();
+
+    // Automatically advance the disaster recovery workflow
+    if (simulation.active) {
+      await db.progressSimulation();
+    }
+
     res.json(db.getSimulationState());
   } catch (error: any) {
     res.status(500).json({ error: error.message });
